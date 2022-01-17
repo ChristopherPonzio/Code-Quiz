@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+}
+
+header {
+    background-color: lightgrey;
+    margin:auto;
+    padding: 50px;
+}
+h1 {
+    font-size: 46px;
+    color: blueviolet;
+    text-align:center;
+}
+#highscore {
+    float:left;
+}
+
+nav {
+    float:right
+}
+
+#quizbox {
+    display:flex;
+    border: 8px solid green;
+    border-radius: 25px;
+    margin: 20px 20px 20px 20px;
+    
+}
+
+button {
+    border:5px solid crimson;
+    margin-left: 49%;
+    font-size: 20px;
+}
