@@ -15,12 +15,23 @@
     </header>
 
     <main>
-        <section id = "quizbox">
-            <p id = "question">Comming Soon</p>
-            <p id = "answers">Coming Soooner</p>
-            
-        </section>  
-        <button id = "button">Start</button> 
+        <div id = "quizbox">
+
+             <section id = "questionbox" class="hide">
+                 <div id = "question">Question</div>
+                 <div id = "answer" class = "btn-grid"></div> 
+                     <button class = "btn">button 1</button>
+                     <button class = "btn">button 2</button>
+                     <button class = "btn">button 3</button>
+                     <button class = "btn">button 4</button>
+             </section> 
+
+             <section class = "controls">
+                 <button id = "startbutton" class = "btn">Start</button> 
+                 <button id = "nextbutton" class = "btn hide">Next</button>
+            </section>
+
+         </div>  
      </main>
 
     <script src="./Assets/script.js"></script>
