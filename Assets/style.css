@@ -31,18 +31,21 @@ main {
     font-size: 1rem;
     margin: 0;
     padding: 0;
-    --hue: var(--hue-neutral);
     display: flex;
     width: 100vw;
     height: 100vh;
     justify-content:center;
     align-items: center;
+    
+}
+body {
+    --hue: var(--hue-neutral);
     background-color: hsl(var(--hue), 100%, 20%);
 }
-main.correct {
+body.correct {
     --hue: var(--hue-correct);
 }
-main.wrong {
+body.wrong {
     --hue: var(--hue-wrong);
 }
 #quizbox {
@@ -65,8 +68,10 @@ main.wrong {
     background-color: hsl(var(--hue), 100%, 50%);
     border-radius: 5px;
     padding:  5px 10px;
-    color: white;
     outline: none;
+}
+.btn:hover {
+    background-color:aquamarine;
 }
 .btn.correct {
     --hue: var(--hue-correct);

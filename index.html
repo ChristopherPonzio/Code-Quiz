@@ -11,7 +11,7 @@
     <header>
         <h1>Coding-Quiz Pt.1</h1>
             <a id = "highscore" href = "scores.html">High Scores</a>
-            <nav>Timer</nav>
+            <nav id = "timekeeper">Timer</nav>
     </header>
 
     <main>
@@ -19,18 +19,18 @@
 
              <section id = "questionbox" class="hide">
                  <div id = "question">Question</div>
-                 <div id = "answer" class = "btn-grid"></div> 
-                     <button class = "btn">button 1</button>
-                     <button class = "btn">button 2</button>
-                     <button class = "btn">button 3</button>
-                     <button class = "btn">button 4</button>
+                 <div id = "answerButtons" class = "btn-grid"></div> 
              </section> 
 
              <section class = "controls">
                  <button id = "startbutton" class = "btn">Start</button> 
-                 <button id = "nextbutton" class = "btn hide">Next</button>
             </section>
 
+            <section id = "userScore" class= "hide">
+                <div id = "score"></div>
+                <input id = "initials">
+                <button id = "submit" class = "btn">Submit</button>
+            </section>
          </div>  
      </main>
 

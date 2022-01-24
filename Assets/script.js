@@ -1,17 +1,16 @@
 // Main vars
-var timekeeper = document.querySelector("nav");
-var startbutton = document.querySelector("#startbutton");
-var questionEl = document.querySelector("#question");
-var answerEl = document.querySelector("#answer");
+const startbutton = document.getElementById('startbutton');
+var timekeeper = document.getElementById('timekeeper');
 var timeLeft = 78;
-
-var questionIndex = [q1, q2, q3, q4, q5];
-var q1 = new Question("Arrays in Javascript can be used to store __.", ["Numbers and Strings", "Other Arrays", "Booleans", "All of the Above"],3);
-var q2 = new Question("A very useful tool used during development and debugging for printing content to the debugger is?", ["Javascript","Terminal/Bash", "For Loops", "Console Log"],3);
-var q3 = new Question("String values must be enclosed within___ when being assigned to variables.", ["Commas", "Curly Brackets", "Quotes", "Parentheses"],2);
-var q4 = new Question("Commonly used data types DO NOT include:", ["Strings", "Booleans", "Alerts", "Numbers"], 2);
-var q5 = new Question("The condition in an if / else statement is enclosed within__.", ["Quotes", "Curly Brackets", "Parentheses", "Square Brackets"], 2);
-let currentQuestion = 0;
+const questionContEl = document.getElementById('questionbox');
+const questionEl = document.getElementById('question');
+const answerButtonsEl = document.getElementById('answerButtons');
+let shuffle, currentQuestionIndex;
+let timeInterval;
+const highScore = document.getElementById('userScore');
+let score = document.getElementById('score');
+var initials = document.getElementById('initials');
+const submit = document.getElementById('submit');
 
 // Button
 startbutton.addEventListener("click", quizstart);
@@ -19,13 +18,16 @@ startbutton.addEventListener("click", quizstart);
 //Runs the quiz
 function quizstart() {
     countdown();
-    //add question function
-    //add game end
+    startbutton.classList.add('hide');
+    questionContEl.classList.remove('hide');
+    shuffle = questions.sort(()=> Math.random()- .5);
+    currentQuestionIndex = 0;
+    setNextQuestion();
 }
 
 //timer function
 function countdown() {
-    var timeInterval = setInterval(function () {
+    timeInterval = setInterval(function () {
         if (timeLeft >1) {
             timekeeper.textContent = timeLeft + 'seconds remaining';
             timeLeft -- ;
@@ -33,22 +35,134 @@ function countdown() {
             timekeeper.textContent = timeLeft + ' second remaining';
              timeLeft--;
         } else {
-            timekeeper.textContent = 'GAME OVER';
+            timekeeper.textContent = 'Game Over';
             clearInterval(timeInterval);
-            window.alert("GAME OVER!!");
+            endGame();   
         }
     }, 1000);
 }
-    //subtract for worng answers
+function setNextQuestion() {
+    resetState();
+    showQuestion(shuffle[currentQuestionIndex]);
+}
 
 
-//question function
+function showQuestion(question) {
+    questionEl.innerText=question.question;
+    question.answers.forEach(answers => {
+        const button = document.createElement('button')
+        button.innerText = answers.text;
+        button.classList.add('btn');
+        if (answers.correct) {
+            button.dataset.correct = answers.correct;
+        }
+        button.addEventListener('click', selectAnswer);
+        answerButtonsEl.appendChild(button);
+    })
+}
 
-    // 5 questions
-    // record answers
-    //end quiz alert
-    // alert correct and incorrect 
+function resetState() {
+    while (answerButtonsEl.firstChild) {
+        answerButtonsEl.removeChild
+        (answerButtonsEl.firstChild);
+    }
+}
+function selectAnswer(e) {
+    const selectedButton = e.target;
+    const correct = selectedButton.dataset.correct;
+    setStatusClass(document.body, correct);
+    Array.from(answerButtonsEl.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct);
+    })
+    if (shuffle.length > currentQuestionIndex + 1) {
+        currentQuestionIndex++
+        setTimeout(setNextQuestion, 500);
+    } else {
+        endGame()
+    }
+}
+function setStatusClass(element, correct){
+    clearStatusClass(element);
+    if(correct) {
+        element.classList.add('correct')
+        
+    } else {
+        element.classList.add('wrong');
+        timeLeft --;
+        timekeeper.textContent = timeLeft;
+    }
+}
+function clearStatusClass(element) {
+    element.classList.remove('correct');
+    element.classList.remove('wrong');
+}
+const questions = [
+    {
+        question: "Arrays in Javascript can be used to store __.",
+        answers: [
+            {text: "Numbers and Strings", correct: false},
+            {text: "Other Arrays", correct: false},
+            {text: "Booleans", correct: false},
+            {text: "All of the Above", correct: true}
+        ]
+    },
+    {
+        question: "A very useful tool used during development and debugging for printing content to the debugger is?",
+        answers: [
+            {text: "Javascript", correct: false},
+            {text: "Terminal/Bash", correct: false},
+            {text: "For Loops", correct: false},
+            {text: "Console Log", correct: true}
+        ]
+    },
 
-//game end
-    //show scores
-    //highscores record
+    {
+        question: "String values must be enclosed within___ when being assigned to variables.",
+        answers: [
+            {text: "Commas", correct: false},
+            {text: "Curly Brackets", correct: false},
+            {text: "Parentheses", correct: false},
+            {text: "Quotes", correct: true}
+        ]
+    },
+    //var q4 = new Question("Commonly used data types DO NOT include:", ["Strings", "Booleans", "Alerts", "Numbers"], 2);
+    {
+        question: "Arrays in Javascript can be used to store __.",
+        answers: [
+            {text: "Numbers and Strings", correct: false},
+            {text: "Other Arrays", correct: false},
+            {text: "Booleans", correct: false},
+            {text: "All of the Above", correct: true}
+        ]
+    },
+    //var q5 = new Question("The condition in an if / else statement is enclosed within__.", ["Quotes", "Curly Brackets", "Parentheses", "Square Brackets"], 2);
+    {
+        question: "Arrays in Javascript can be used to store __.",
+        answers: [
+            {text: "Numbers and Strings", correct: false},
+            {text: "Other Arrays", correct: false},
+            {text: "Booleans", correct: false},
+            {text: "All of the Above", correct: true}
+        ]
+    }
+]
+
+function endGame() {
+    console.log (timeLeft+ 1);
+    clearInterval(timeInterval);
+    score.innerHTML = "Your Score is" + (timeLeft) + "!";
+    questionContEl.classList.add('hide');
+    highScore.classList.remove('hide');
+}
+submit.addEventListener('click', function(event) {
+    event.preventDefault();
+    var highScore = {
+        initials: initials.value.trim(),
+        score: timeLeft
+    };
+    localStorage.setItem("initials",JSON.stringify(highScore));
+    saveScore();
+});
+function saveScore() {
+    score.textContent = "Your Score has been saved!";
+    }
