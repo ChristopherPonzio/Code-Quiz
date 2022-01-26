@@ -77,10 +77,15 @@ function selectAnswer(e) {
     if (shuffle.length > currentQuestionIndex + 1) {
         currentQuestionIndex++
         setTimeout(setNextQuestion, 500);
+    }if (selectedButton === correct) {
+        timeLeft --;
+        timekeeper.textContent = timeLeft;
+        
     } else {
         endGame()
     }
 }
+
 function setStatusClass(element, correct){
     clearStatusClass(element);
     if(correct) {
@@ -88,8 +93,6 @@ function setStatusClass(element, correct){
         
     } else {
         element.classList.add('wrong');
-        timeLeft --;
-        timekeeper.textContent = timeLeft;
     }
 }
 function clearStatusClass(element) {
