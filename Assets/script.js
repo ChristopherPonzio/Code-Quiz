@@ -76,6 +76,7 @@ function selectAnswer(e) {
     Array.from(answerButtonsEl.children).forEach(button => {
         setStatusClass(button, button.dataset.correct);
     })
+
     if (shuffle.length > currentQuestionIndex + 1) {
         currentQuestionIndex++
         setTimeout(setNextQuestion, 500);   
@@ -91,6 +92,8 @@ function setStatusClass(element, correct){
         
     } else {
         element.classList.add('wrong');
+        timeLeft --;
+        timekeeper.textContent = timeLeft;
     }
 }
 
