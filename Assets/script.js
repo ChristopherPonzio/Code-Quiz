@@ -76,11 +76,6 @@ function selectAnswer(e) {
     Array.from(answerButtonsEl.children).forEach(button => {
         setStatusClass(button, button.dataset.correct);
     })
-    checkWrong()
-    function checkWrong() {
-        if (selectedButton === document.getElementById('wrong')) {
-        timekeeper --- 10
-    }}
     if (shuffle.length > currentQuestionIndex + 1) {
         currentQuestionIndex++
         setTimeout(setNextQuestion, 500);   
