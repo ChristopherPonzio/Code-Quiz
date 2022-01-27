@@ -41,12 +41,13 @@ function countdown() {
         }
     }, 1000);
 }
+// Pulls the Next question
 function setNextQuestion() {
     resetState();
     showQuestion(shuffle[currentQuestionIndex]);
 }
 
-
+//Shows question
 function showQuestion(question) {
     questionEl.innerText=question.question;
     question.answers.forEach(answers => {
@@ -60,13 +61,14 @@ function showQuestion(question) {
         answerButtonsEl.appendChild(button);
     })
 }
-
+// Keeps HTML from containing all questions at 1 time
 function resetState() {
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild
         (answerButtonsEl.firstChild);
     }
 }
+// Creats the answer buttons or ends the quiz
 function selectAnswer(e) {
     const selectedButton = e.target;
     const correct = selectedButton.dataset.correct;
@@ -74,18 +76,19 @@ function selectAnswer(e) {
     Array.from(answerButtonsEl.children).forEach(button => {
         setStatusClass(button, button.dataset.correct);
     })
+    checkWrong()
+    function checkWrong() {
+        if (selectedButton === document.getElementById('wrong')) {
+        timekeeper --- 10
+    }}
     if (shuffle.length > currentQuestionIndex + 1) {
         currentQuestionIndex++
-        setTimeout(setNextQuestion, 500);
-    }if (selectedButton === correct) {
-        timeLeft --;
-        timekeeper.textContent = timeLeft;
-        
+        setTimeout(setNextQuestion, 500);   
     } else {
         endGame()
     }
 }
-
+// sets the buttons to correct or incorrect
 function setStatusClass(element, correct){
     clearStatusClass(element);
     if(correct) {
@@ -95,6 +98,8 @@ function setStatusClass(element, correct){
         element.classList.add('wrong');
     }
 }
+
+// clears the status of the buttons for the next question
 function clearStatusClass(element) {
     element.classList.remove('correct');
     element.classList.remove('wrong');
@@ -149,7 +154,7 @@ const questions = [
         ]
     }
 ]
-
+// end game shows score
 function endGame() {
     console.log (timeLeft+ 1);
     clearInterval(timeInterval);
@@ -157,6 +162,7 @@ function endGame() {
     questionContEl.classList.add('hide');
     highScore.classList.remove('hide');
 }
+//submit high score to local storage
 submit.addEventListener('click', function(event) {
     event.preventDefault();
     var highScore = {
@@ -166,6 +172,7 @@ submit.addEventListener('click', function(event) {
     localStorage.setItem("initials",JSON.stringify(highScore));
     saveScore();
 });
+// unnessecary function to say your score has been 
 function saveScore() {
     score.textContent = "Your Score has been saved!";
     }
